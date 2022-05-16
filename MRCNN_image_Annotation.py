@@ -49,7 +49,7 @@ COCO_WEIGHTS_PATH = os.path.join(ROOT_DIR, "mask_rcnn_coco.h5")
 
 # Directory to save logs and model checkpoints, if not provided
 # through the command line argument --logs
-DEFAULT_LOGS_DIR = os.path.join(ROOT_DIR, "logs")
+DEFAULT_LOGS_DIR = '/home/michailk/projects/railway_detection/Code/Mask_RCNN_old/logs/'
 
 # Results directory
 # Save submission files here
@@ -91,7 +91,7 @@ class TrackConfig(Config):
     NUM_CLASSES = 1 + 1  # Background + track
 
     # Number of training and validation steps per epoch
-    STEPS_PER_EPOCH = (657 - len(VAL_IMAGE_IDS)) // IMAGES_PER_GPU # 657
+    STEPS_PER_EPOCH = 50 #(657 - len(VAL_IMAGE_IDS)) // IMAGES_PER_GPU # 657
     VALIDATION_STEPS = max(1, len(VAL_IMAGE_IDS) // IMAGES_PER_GPU)
 
     # Don't exclude based on confidence. Since we have two classes
@@ -262,14 +262,14 @@ def train(model, dataset_dir, subset):
     print("Train network heads")
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
-                epochs=20, #20
+                epochs=2, #20
                 augmentation=augmentation,
                 layers='heads')
     
     print("Train all layers")
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
-                epochs=40, #40
+                epochs=4, #40
                 augmentation=augmentation,
                 layers='all')
 

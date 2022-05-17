@@ -91,7 +91,7 @@ class TrackConfig(Config):
     NUM_CLASSES = 1 + 1  # Background + track
 
     # Number of training and validation steps per epoch
-    STEPS_PER_EPOCH = 50 #(657 - len(VAL_IMAGE_IDS)) // IMAGES_PER_GPU # 657
+    STEPS_PER_EPOCH = (657 - len(VAL_IMAGE_IDS)) // IMAGES_PER_GPU # 657
     VALIDATION_STEPS = max(1, len(VAL_IMAGE_IDS) // IMAGES_PER_GPU)
 
     # Don't exclude based on confidence. Since we have two classes
@@ -104,7 +104,7 @@ class TrackConfig(Config):
 
     # Input image resizing
     # Random crops of size 512x512
-    IMAGE_RESIZE_MODE = "crop"
+    IMAGE_RESIZE_MODE = 'square'                          ########################################
     IMAGE_MIN_DIM = 512
     IMAGE_MAX_DIM = 512
     IMAGE_MIN_SCALE = 2.0
@@ -262,14 +262,14 @@ def train(model, dataset_dir, subset):
     print("Train network heads")
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
-                epochs=2, #20
+                epochs=5, #20
                 augmentation=augmentation,
                 layers='heads')
     
     print("Train all layers")
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
-                epochs=4, #40
+                epochs=10, #40
                 augmentation=augmentation,
                 layers='all')
 

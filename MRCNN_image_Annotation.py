@@ -1,6 +1,6 @@
 # https://github.com/leekunhee/Mask_RCNN/blob/master/samples/nucleus/nucleus.py
 
-# conda environment tf2k
+# conda environment tf2k - tensorflow 2.9
 # python3 MRCNN_image_Annotation.py train --dataset=/home/michailk/projects/railway_detection/Code/Mask_RCNN/dataset/ --subset=train --weights=last
 # python3 MRCNN_image_Annotation.py detect --dataset=/home/michailk/projects/railway_detection/Code/Mask_RCNN/dataset/ --subset=stage1_test --weights=last
 
@@ -85,7 +85,7 @@ class TrackConfig(Config):
     NAME = "tracks"
 
     # Adjust depending on your GPU memory
-    IMAGES_PER_GPU = 6
+    IMAGES_PER_GPU = 1
 
     # Number of classes (including background)
     NUM_CLASSES = 1 + 1  # Background + track
@@ -104,10 +104,10 @@ class TrackConfig(Config):
 
     # Input image resizing
     # Random crops of size 512x512
-    IMAGE_RESIZE_MODE = 'square'                          ########################################
-    IMAGE_MIN_DIM = 512
-    IMAGE_MAX_DIM = 512
-    IMAGE_MIN_SCALE = 2.0
+    IMAGE_RESIZE_MODE = 'square' #'crop'
+    IMAGE_MIN_DIM = 1088 #512
+    IMAGE_MAX_DIM = 1920
+    #IMAGE_MIN_SCALE = 2.0
 
     # Length of square anchor side in pixels
     RPN_ANCHOR_SCALES = (8, 16, 32, 64, 128)
